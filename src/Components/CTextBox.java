@@ -32,13 +32,17 @@ public class CTextBox extends Component{
         this.mask = mask;
         parent.addComponent(this);
     }
+    
+    public void setText(String text){
+        this.text = text;
+    }
 
     @Override public String getId(){
         return id;
     }
 
     @Override public void invoke() {
-        text = parent.getInput("Value for " + id + " :");
+        text = parent.getInput("Nilai untuk " + id + " :");
     }
 
     @Override public void highlight(){

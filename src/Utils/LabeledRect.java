@@ -29,16 +29,6 @@ public class LabeledRect extends ConsoleUtils {
         this.w = size + 2;
         this.captionX = w/2 - caption.length()/2 + x;
     }
-
-    public void setX(int x){
-        this.x = x;
-        this.captionX = w/2 - caption.length() / 2 + x;
-    }
-
-    public void setY(int x){
-        this.x = x;
-        this.captionX = w/2 - caption.length() / 2 + x;
-    }
        
     public void setFgColor(int color){
         fgColor = color;

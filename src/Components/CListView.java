@@ -15,7 +15,6 @@ public class CListView extends Component {
     CLayout parent;
     boolean visible = true;
     int initialRow;
-    public int rowNumber = 0;
     boolean disabled = false;
 
     public CListView(CLayout parent, int x, int y, String id) {
@@ -34,7 +33,7 @@ public class CListView extends Component {
 
     public String[] get(int irow){
         String[] row = null;
-        if(rowNumber > 0) {
+        if(columns.get(0).list.size() > 0) {
             row = new String[columns.size()];
             for (int i = 0; i < columns.size(); i++) {
                 row[i] = columns.get(i).list.get(irow);
@@ -54,6 +53,12 @@ public class CListView extends Component {
     public void remove(int index) {
         for (SingleList list : columns) {
             list.remove(index);
+        }
+    }
+    
+    public void clear(){
+        for(int i = columns.get(0).list.size() - 1; i >= 0; i--){
+            remove(i);
         }
     }
 
@@ -84,7 +89,6 @@ public class CListView extends Component {
         for (int i = 0; i < row.length; i++) {
             columns.get(i).add(row[i]);
         }
-        rowNumber++;
     }
 
     @Override public void highlight() {
@@ -160,7 +164,7 @@ class SingleList extends ConsoleUtils {
                     textX = header.x + header.w - text.length();
                     break;
             }
-            fgColor(Color.BRIGHT_WHITE);
+            fgColor(Color.BLACK);
             text(text, textX, y + i + 1);
         }
     }

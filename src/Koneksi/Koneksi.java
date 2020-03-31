@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class Koneksi {
 
+    public static Connection conn;
+    public static PreparedStatement pStatement;
     public String user;
     public String pwd;
     public String host;
@@ -39,46 +41,45 @@ public class Koneksi {
    public int updateDB(String sql, String ... values){
        try{
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection(urlValue);
-            PreparedStatement pStatement = (PreparedStatement) conn.prepareStatement(sql);
+            conn = (Connection) DriverManager.getConnection(urlValue);
+            pStatement = (PreparedStatement) conn.prepareStatement(sql);
             
             for(int i = 1;i<=values.length; i++){
                 pStatement.setString(i,values[i-1]);
             }
-            
             return pStatement.executeUpdate();
-                       
         }catch(Exception e){
             System.out.println("Koneksi Gagal \n"+ e.getMessage());
-        } 
+        }
        return 0;
     }
    
    public ResultSet selectDB(String sql, String ... values){
        try{
+            
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection(urlValue);
-            Statement st = conn.createStatement();
-            PreparedStatement pStatement = (PreparedStatement) conn.prepareStatement(sql);
-            for(int i = 1;i<=values.length; i++){
-                pStatement.setString(i,values[i-1]);
+            conn = (Connection) DriverManager.getConnection(urlValue);
+            pStatement = (PreparedStatement) conn.prepareStatement(sql);
+            if (values.length > 1 && !values[0].equals("")){
+                for(int i = 1;i<=values.length; i++){
+                    pStatement.setString(i, values[i-1]);
+                }
             }
-            System.out.println(pStatement.toString());
             return pStatement.executeQuery();
                        
         }catch(Exception e){
             System.out.println("Koneksi Gagal \n"+ e.getMessage());
-        } 
+        }
        return null;
     }
    
-   public void closeConn(ResultSet res, Connection conn){
+   public void closeConn(){
         try {
-            res.close();
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+               conn.close();
+               pStatement.close();
+           } catch (SQLException ex) {
+               Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
+           }
        
    }
 }

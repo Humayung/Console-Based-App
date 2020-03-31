@@ -47,7 +47,7 @@ public class CLayout {
 
     }
 
-    void render() {
+    public void render() {
         for (Component component : components) {
             component.render();
         }
@@ -91,6 +91,7 @@ public class CLayout {
     }
 
     public void getCommand(boolean clear) {
+        form_load();
         String command = "";
         resetColor();
         if(clear) {
@@ -99,8 +100,8 @@ public class CLayout {
         render();
         focusedComponent = switchableComponents.get(0);
         focusedComponent.highlight();
-        while (!command.equals("x")) {
-            command = getInput("Input Command (q:switch, e:touch) : ");
+        while (!command.toLowerCase().equals("x")) {
+            command = getInput("Masukkan Perintah (q:prev, e:next, w:touch) : ");
             switch (command.toLowerCase()) {
                 case TOUCH:
                     focusedComponent.invoke();
@@ -139,6 +140,7 @@ public class CLayout {
                 
             }
         }
+        System.exit(0);
     }
 
     String getInput(String message) {
@@ -149,7 +151,7 @@ public class CLayout {
         moveCursor(0, parentFrame.height + 1);
         clearLine();
         System.out.print(message);
-        input = scan.next();
+        input = scan.nextLine();
         resetColor();
         return input;
     }

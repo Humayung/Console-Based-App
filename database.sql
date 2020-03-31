@@ -21,14 +21,15 @@ USE `db_lapangan`;
 DROP TABLE IF EXISTS `lapangan`;
 
 CREATE TABLE `lapangan` (
-  `id_lapang` int(5) NOT NULL,
+  `id_lapang` int(5) NOT NULL AUTO_INCREMENT,
   `nama_lapang` varchar(25) DEFAULT NULL,
+  `ukuran` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_lapang`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `lapangan` */
 
-insert  into `lapangan`(`id_lapang`,`nama_lapang`) values (3,'LAPANGAN 5'),(5,'LAPANGAN 3');
+insert  into `lapangan`(`id_lapang`,`nama_lapang`,`ukuran`) values (1,'Lapangan 3','35x30m'),(3,'LAPANGAN 5','25x30m'),(5,'LAPANGAN 3','30x40m'),(9,'Lapangan 10','25x18m');
 
 /*Table structure for table `pegawai` */
 
@@ -52,10 +53,10 @@ DROP TABLE IF EXISTS `tarif`;
 CREATE TABLE `tarif` (
   `pk_tarif` int(11) NOT NULL,
   `id_lapang` int(11) DEFAULT NULL,
-  `jam_mulai` time DEFAULT NULL,
+  `jam_mulai` time NOT NULL,
   `jam_selesai` time DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
-  PRIMARY KEY (`pk_tarif`),
+  PRIMARY KEY (`pk_tarif`,`jam_mulai`),
   KEY `id_lapang` (`id_lapang`),
   CONSTRAINT `tarif_ibfk_1` FOREIGN KEY (`id_lapang`) REFERENCES `lapangan` (`id_lapang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -72,22 +73,21 @@ CREATE TABLE `transaksi` (
   `kode_transaksi` int(5) NOT NULL AUTO_INCREMENT,
   `nama_club` varchar(20) DEFAULT NULL,
   `id_lapang` int(5) DEFAULT NULL,
-  `tgl_boking` date DEFAULT NULL,
+  `tgl_booking` date DEFAULT NULL,
   `jam_mulai` time DEFAULT NULL,
   `jam_selesai` time DEFAULT NULL,
-  `bayar` int(10) DEFAULT NULL,
-  `username` varchar(15) NOT NULL,
+  `petugas` varchar(15) NOT NULL,
   `biaya` int(11) DEFAULT NULL,
   PRIMARY KEY (`kode_transaksi`),
-  KEY `username` (`username`),
+  KEY `username` (`petugas`),
   KEY `id_lapang` (`id_lapang`),
-  CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`username`) REFERENCES `pegawai` (`username`),
-  CONSTRAINT `transaksi_ibfk_5` FOREIGN KEY (`id_lapang`) REFERENCES `lapangan` (`id_lapang`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  CONSTRAINT `transaksi_ibfk_3` FOREIGN KEY (`petugas`) REFERENCES `pegawai` (`username`),
+  CONSTRAINT `transaksi_ibfk_4` FOREIGN KEY (`id_lapang`) REFERENCES `lapangan` (`id_lapang`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `transaksi` */
 
-insert  into `transaksi`(`kode_transaksi`,`nama_club`,`id_lapang`,`tgl_boking`,`jam_mulai`,`jam_selesai`,`bayar`,`username`,`biaya`) values (1,'bujang club',3,'2020-01-22','09:00:00','10:00:00',20000,'ahmad',100000),(2,'UNIK om',3,'2020-01-28','13:00:00','14:00:00',50000,'ahmad',120000),(3,'pandang',3,'2020-01-29','14:00:00','15:00:00',50000,'ahmad',120000),(4,'PAK PAK FC',3,'2020-02-29','12:00:00','14:00:00',50000,'ahmad',500000),(5,'PAK PAK FC',3,'2020-02-29','12:00:00','14:00:00',50000,'ahmad',500000);
+insert  into `transaksi`(`kode_transaksi`,`nama_club`,`id_lapang`,`tgl_booking`,`jam_mulai`,`jam_selesai`,`petugas`,`biaya`) values (1,'bujang club',3,'2020-01-22','09:00:00','10:00:00','ahmad',100000),(2,'UNIK om',3,'2020-01-28','13:00:00','14:00:00','ahmad',120000),(3,'pandang',3,'2020-01-29','14:00:00','15:00:00','ahmad',120000),(4,'PAK PAK FC',3,'2020-02-29','12:00:00','14:00:00','ahmad',500000),(5,'PAK PAK FC',3,'2020-02-29','12:00:00','14:00:00','ahmad',500000),(6,'tara',3,'2020-01-22','11:00:00','13:00:00','ahmad',200000),(7,'ASS',3,'2020-12-01','14:00:00','23:00:00','ahmad',1080000),(8,'ASS2',3,'2020-11-10','14:00:00','23:00:00','ahmad',1080000),(9,'FutsalOK2',3,'2019-10-10','14:00:00','21:00:00','ahmad',840000),(11,'axl',3,'2000-01-01','12:00:00','13:00:00','ahmad',120000),(12,'bujanf liar',3,'2010-01-02','14:00:00','15:00:00','ahmad',120000);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
