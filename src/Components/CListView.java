@@ -151,19 +151,12 @@ class SingleList extends ConsoleUtils {
         fill(x, y + header.h, header.w, Math.max(list.size(), initialRow));
         for (int i = 0; i < list.size(); i++) {
             String text = list.get(i).length() > header.w ? list.get(i).substring(0, header.w + 1) : list.get(i);
-            int textX = 0;
-            switch (justify) {
-                case 0:
-                    textX = header.x;
-                    break;
-                case 1:
-                    textX = header.w / 2 - text.length() / 2 + x;
-                    break;
-
-                case 2:
-                    textX = header.x + header.w - text.length();
-                    break;
-            }
+            int textX = switch (justify) {
+                case 0 -> header.x;
+                case 1 -> header.w / 2 - text.length() / 2 + x;
+                case 2 -> header.x + header.w - text.length();
+                default -> 0;
+            };
             fgColor(Color.BLACK);
             text(text, textX, y + i + 1);
         }

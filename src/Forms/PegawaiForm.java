@@ -39,13 +39,11 @@ public class PegawaiForm extends CLayout {
         try {
             int no = 1;
             while(res.next()){
-                String pwdMask = "";
+                StringBuilder pwdMask = new StringBuilder();
                 String pwd = res.getString("password");
-                for(int i = 0; i < pwd.length(); i++){
-                    pwdMask += "*";
-                }
+                pwdMask.append("*".repeat(pwd.length()));
                 
-                listViewLapangan.addRow(String.valueOf(no), res.getString("username"), res.getString("nama_pegawai"), pwdMask);
+                listViewLapangan.addRow(String.valueOf(no), res.getString("username"), res.getString("nama_pegawai"), pwdMask.toString());
                 no++;
             }
         } catch (SQLException ex) {

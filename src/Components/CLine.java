@@ -5,10 +5,6 @@
  */
 package Components;
 
-/**
- *
- * @author Asus
- */
 import Utils.Color;
 import static Utils.ConsoleUtils.*;
 
@@ -52,9 +48,9 @@ public class CLine extends Component{
         fgColor(Color.BLACK);
         bgColor(Color.BRIGHT_WHITE);
         if(visible){
-            if(orientation == "vertical"){
+            if(orientation.equals("vertical")){
                 vline(x, y, length, 179);
-            }else if(orientation == "horizontal"){
+            }else if(orientation.equals("horizontal")){
                 hline(x, y, length, 196);
             }else{
                 throw new Error("Orientation is not valid!");

@@ -26,8 +26,8 @@ public class CLabel extends Component{
     }
     
     public void format(String ... format){
-        for(int i = 0; i < format.length; i++){
-            caption = caption.replaceFirst("_", format[i]);
+        for (String s : format) {
+            caption = caption.replaceFirst("_", s);
         }
         render();
     }

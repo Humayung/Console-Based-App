@@ -1,1 +1,0 @@
-INSERT INTO transaksi (kode_transaksi,nama_club,id_lapang,tgl_boking,jam_mulai,jam_selesai,bayar,username,biaya) VALUES ('','PAK PAK FC','3','2020-02-29','12:00','14:00','50000','ahmad','500000')

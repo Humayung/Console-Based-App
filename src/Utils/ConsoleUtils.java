@@ -1,4 +1,7 @@
 package Utils;
+
+import java.util.Objects;
+
 public class ConsoleUtils {
 
     public static void moveCursor(int x, int y) {
@@ -8,7 +11,7 @@ public class ConsoleUtils {
         System.out.println("\033[8;50;100t");
     }
     static void setColor(int r, int g, int b, String mode) {
-        if (mode == "fg") {
+        if (Objects.equals(mode, "fg")) {
             System.out.print("\033[38;2;" + r + ';' + g + ';' + b + 'm');
         } else if (mode == "bg") {
             System.out.print("\033[48;2;" + r + ';' + g + ';' + b + 'm');

@@ -1,6 +1,7 @@
 package Components;
 
 import Utils.Color;
+import Utils.ConsoleUtils;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.util.ArrayList;
@@ -32,11 +33,7 @@ public class CLayout {
     }
     
     private static void runShutdownCatcher(){
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-		public void run() {
-		    resetColor();
-		}
-	    });
+        Runtime.getRuntime().addShutdownHook(new Thread(ConsoleUtils::resetColor));
     }
     
     public void form_load(){
@@ -100,44 +97,39 @@ public class CLayout {
         render();
         focusedComponent = switchableComponents.get(0);
         focusedComponent.highlight();
-        while (!command.toLowerCase().equals("x")) {
+        while (!command.equalsIgnoreCase("x")) {
             command = getInput("Masukkan Perintah (q:prev, e:next, w:touch) : ");
             switch (command.toLowerCase()) {
-                case TOUCH:
+                case TOUCH -> {
                     focusedComponent.invoke();
                     focusedComponent.highlight();
-                    break;
-                case SWITCH_NEXT:
+                }
+                case SWITCH_NEXT -> {
                     focusedComponent.render();
-                    
                     focusedIndex = (focusedIndex + 1) % switchableComponents.size();
                     focusedComponent = switchableComponents.get(focusedIndex);
-                    
-                    while(!focusedComponent.visible()){
+                    while (!focusedComponent.visible()) {
                         focusedIndex = (focusedIndex + 1) % switchableComponents.size();
                         focusedComponent = switchableComponents.get(focusedIndex);
                     }
                     focusedComponent.highlight();
-                    break;
-                case SWITCH_PREV:
+                }
+                case SWITCH_PREV -> {
                     focusedComponent.render();
-
                     focusedIndex--;
-                    if(focusedIndex < 0){
+                    if (focusedIndex < 0) {
                         focusedIndex = switchableComponents.size() - 1;
                     }
                     focusedComponent = switchableComponents.get(focusedIndex);
-                    
-                    while(!focusedComponent.visible()){
+                    while (!focusedComponent.visible()) {
                         focusedIndex--;
-                        if(focusedIndex == 0){
+                        if (focusedIndex == 0) {
                             focusedIndex = switchableComponents.size() - 1;
                         }
                         focusedComponent = switchableComponents.get(focusedIndex);
                     }
                     focusedComponent.highlight();
-                    break;
-                
+                }
             }
         }
         System.exit(0);

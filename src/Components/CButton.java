@@ -56,16 +56,10 @@ public class CButton extends Component {
         try {
             try {
                 parent.getClass().getDeclaredMethod(id + "_touched").invoke(parent);
-            } catch (NoSuchMethodException ex) {
-                Logger.getLogger(CButton.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SecurityException ex) {
+            } catch (NoSuchMethodException | SecurityException ex) {
                 Logger.getLogger(CButton.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(CButton.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(CButton.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvocationTargetException ex) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(CButton.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

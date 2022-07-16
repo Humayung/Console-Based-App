@@ -100,11 +100,9 @@ public class CTextBox extends Component{
         if("".equals(mask)) {
             text(text.length() > w ? text.substring(0, w) : text, x, y);
         }else{
-            String masked = "";
-            for(int i = 0; i < text.length(); i++){
-                masked += mask;
-            }
-            text(masked.length() > w ? masked.substring(0, w) : masked, x, y);
+            StringBuilder masked = new StringBuilder();
+            masked.append(String.valueOf(mask).repeat(text.length()));
+            text(masked.length() > w ? masked.substring(0, w) : masked.toString(), x, y);
         }
     }
 }

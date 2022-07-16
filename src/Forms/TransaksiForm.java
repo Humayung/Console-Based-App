@@ -58,14 +58,17 @@ public class TransaksiForm extends CLayout{
         
         //Data Final
         new CLabel(this, 2, 18, "Data Final", "dataFinal_label");
-        new CLabel(this, 2, 20, String.format("Penyewa dengan\n  "
-                + "Nama Club %s dan\n  "
-                + "Nomor Telepon %s\n  "
-                + "Menyewa Lapangan Futsal (%s)\n  "
-                + "Pada Tanggal %s\n  "
-                + "Dari Jam %s \n  sampai dengan Jam %s (Durasi %s) \n  "
-                + "Dengan biaya penyewaan sebesar %s/jam\n  "
-                + "Sudah melakukan pembayaran sebanyak %s\n  "
+        new CLabel(this, 2, 20, String.format("""
+                        Penyewa dengan
+                          Nama Club %s dan
+                          Nomor Telepon %s
+                          Menyewa Lapangan Futsal (%s)
+                          Pada Tanggal %s
+                          Dari Jam %s\s
+                          sampai dengan Jam %s (Durasi %s)\s
+                          Dengan biaya penyewaan sebesar %s/jam
+                          Sudah melakukan pembayaran sebanyak %s
+                         \s"""
                 , "_", "_", "_", "_", "_", "_", "_", "_", "_"), "kesimpulan_label");
         new CButton(this, 17, 30, "Konfirmasi", "konfirmasi_button");
         
@@ -151,14 +154,17 @@ public class TransaksiForm extends CLayout{
             }
             String biaya = String.valueOf(hitungDurasi(jamMulai, jamSelesai) * harga) ;
             MainClass.koneksiSQL.updateDB(sql, namaClub, noTelp, idlapangan, tanggal, jamMulai, jamSelesai, username, biaya);
-            ((CLabel)getComponentById("kesimpulan_label")).setCaption(String.format("Penyewa dengan\n  "
-                + "Nama Club %s dan\n  "
-                + "Nomor Telepon %s\n  "
-                + "Menyewa Lapangan Futsal (%s)\n  "
-                + "Pada Tanggal %s\n  "
-                + "Dari Jam %s \n  sampai dengan Jam %s (Durasi %s) \n  "
-                + "Dengan biaya penyewaan sebesar %s/jam\n  "
-                + "Sudah melakukan pembayaran sebanyak %s\n  "
+            ((CLabel)getComponentById("kesimpulan_label")).setCaption(String.format("""
+                            Penyewa dengan
+                              Nama Club %s dan
+                              Nomor Telepon %s
+                              Menyewa Lapangan Futsal (%s)
+                              Pada Tanggal %s
+                              Dari Jam %s\s
+                              sampai dengan Jam %s (Durasi %s)\s
+                              Dengan biaya penyewaan sebesar %s/jam
+                              Sudah melakukan pembayaran sebanyak %s
+                             \s"""
                 , "_", "_", "_", "_", "_", "_", "_", "_", "_"));
             form_load();
             render();
@@ -207,9 +213,8 @@ public class TransaksiForm extends CLayout{
         menit = Integer.parseInt(jam_selesai[1]);
         jam = Integer.parseInt(jam_selesai[0]);
         int selesai_menit = jam * 60 + menit;
-        
-        int durasi = (selesai_menit - mulai_menit) / 60;
-        return durasi;
+
+        return (selesai_menit - mulai_menit) / 60;
     }
     
 }

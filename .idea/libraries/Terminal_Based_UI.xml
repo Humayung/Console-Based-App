@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Terminal Based UI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/Terminal_Based_UI_jar/Terminal Based UI.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
